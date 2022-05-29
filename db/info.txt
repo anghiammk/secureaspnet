@@ -1,0 +1,111 @@
+USE [information]
+GO
+
+INSERT INTO [dbo].[info]
+           ([username]
+           ,[address]
+           ,[phone]
+           ,[password]
+           ,[time_create]
+           ,[id]
+           ,[age]
+           ,[name]
+           ,[salt])
+     VALUES
+           (
+		   'admin',
+		   'Ha Noi',
+		   '0987667456',
+		   'miEZ1CszcPh+SouO7UBzCKUXy4+GEpYljz67cvlBvWk=',
+		   CURRENT_TIMESTAMP,
+		   '58EAB207-F70E-43B1-B1AA-8AFCC614FCDF',
+		   28,
+		   'Nguyen Van Tung',
+		   'CnZcBCapNwFCZzMFvModvlm7TOPu+P7wUTKpNwFe5R0='
+		   )
+GO
+
+
+USE [information]
+GO
+
+INSERT INTO [dbo].[info]
+           ([username]
+           ,[address]
+           ,[phone]
+           ,[password]
+           ,[time_create]
+           ,[id]
+           ,[age]
+           ,[name]
+           ,[salt])
+     VALUES
+           (
+		   'user1',
+		   'Bac Ninh',
+		   '0987667450',
+		   'tF3rPptFdpnNqPgWeghIVzl9MvqR2wV5H5LLxCmwzXU=',
+		   CURRENT_TIMESTAMP,
+		   '46C5A709-4C84-4B64-9CA2-77190E06D8D6',
+		   25,
+		   'Pham Tung Lam',
+		   'xVDzuUxKfmFFAzkd3AHTTLzsRazIh1iLOdHXR4FIns4='
+		   )
+GO
+
+
+USE [information]
+GO
+
+INSERT INTO [dbo].[info]
+           ([username]
+           ,[address]
+           ,[phone]
+           ,[password]
+           ,[time_create]
+           ,[id]
+           ,[age]
+           ,[name]
+           ,[salt])
+     VALUES
+           (
+		   'user3',
+		   'Quang Ninh',
+		   '0987667965',
+		   'pD93EpcvuTyMX2cWXcYfeG1ltePfBwgaxPE6a7bOQL8=',
+		   CURRENT_TIMESTAMP,
+		   'E80EF9A4-1822-46A6-987E-8ED4F0D184ED',
+		   32,
+		   'Ho Thanh Son',
+		   'JcvQSZ4eelnqZmQQ8Wlv0XH0rYgKFthAM5erlqRpAdE='
+		   )
+GO
+
+
+USE [information]
+GO
+
+INSERT INTO [dbo].[info]
+           ([username]
+           ,[address]
+           ,[phone]
+           ,[password]
+           ,[time_create]
+           ,[id]
+           ,[age]
+           ,[name]
+           ,[salt])
+     VALUES
+           (
+		   'user4',
+		   'Lang Son',
+		   '098768886',
+		   '2W5Rr0NecLixrtZkfUJ901e8al5lofcLBvI1Pz34tFQ=',
+		   CURRENT_TIMESTAMP,
+		   'FE022D95-1A92-42A7-92A5-6AB450781502',
+		   31,
+		   'Nguyen Lam Anh',
+		   '/C3bRR0TCF1grrUVtp/a6obZKNh8/qhK6rZ9sMbmynQ='
+		   )
+GO
+

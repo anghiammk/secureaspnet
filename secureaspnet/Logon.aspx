@@ -1,10 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Logon.aspx.cs" Inherits="secureaspnet.Logon" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <title>Login Form</title>
 </head>
-<body>  
-    <form id="form1" runat="server">  
+<body> 
+    <form id="form1" runat="server" method="post">  
+    <%= System.Web.Helpers.AntiForgery.GetHtml() %>
         <div >  
             <table style="width:100%;">  
                 <caption class="style1">  

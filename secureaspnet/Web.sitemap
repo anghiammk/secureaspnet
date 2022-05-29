@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+<siteMapNode url="" title="Home" description="" roles ="*">
+  <siteMapNode url="~/Home.aspx"    title="Home"    description="Home Page"         roles="*" />
+  <siteMapNode url="~/Contact.aspx" title="Contact" description="Contact Us Page"   roles="*" />
+  <siteMapNode url="~/About.aspx"   title="About"   description="About Page"        roles="*" />
+  <siteMapNode url="~/Logon.aspx"   title="Logon"   description="Logon Page"        roles="*" />
+  <siteMapNode url="~/Global.aspx"   title="Global"   description="Global Page"     roles="*" />
+  <siteMapNode url="~/Default.aspx"   title="Default"   description="Default Page"  roles="*" />
+  <siteMapNode url="~/InformationUser.aspx"   title="Information User"   description="Information User Page"  roles="*" />
+
+  <siteMapNode url="javascript:;" title="Admin" description="Admin Page" roles ="Administrator">
+    <siteMapNode url ="~/Admin/Manager.aspx" title="Manager" description="Manager Page" roles ="Administrator"></siteMapNode>
+  </siteMapNode>
+  
+</siteMapNode>
+</siteMap>

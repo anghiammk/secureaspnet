@@ -86,8 +86,6 @@ namespace secureaspnet
 
             return role;
         }
-        lblValidationResult.Text = txtCode.Text + " OK " + DateTime.UtcNow.ToString();
-                lblValidationResult.ForeColor = System.Drawing.Color.Green;
 
         protected void btnValidate_Click(object sender, EventArgs e)
         {

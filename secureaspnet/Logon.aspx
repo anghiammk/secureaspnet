@@ -2,13 +2,36 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+        table
+        {
+            border:1px solid #ccc;
+            border-collapse:collapse;
+        }
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+        table th, table td
+        {
+            padding: 5px;
+            border-color: #ccc;
+        }
+    </style>
 <title>Login Form</title>
 </head>
 <body> 
     <form id="form1" runat="server" method="post">  
     <%= System.Web.Helpers.AntiForgery.GetHtml() %>
         <div >  
-            <table style="width:100%;">  
+            <table style="width:50%;">  
                 <caption class="style1">  
                     <strong>Login Form</strong>  
                 </caption>  

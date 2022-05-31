@@ -14,30 +14,45 @@ namespace secureaspnet
 {
     public partial class LogonConfirmCode : System.Web.UI.Page
     {
-        
+        private string key;
+        private string user;
+
+        private void GetValueFromURLEncrypt()
+        {
+
+            LibSecureASP lib = new LibSecureASP();
+            string cipherText = lib.DecryptURL(Request.QueryString["q"]);
+            string[] arryItem = cipherText.Split('&');
+            string[] keys = arryItem[0].Split('=');
+            string[] users = arryItem[1].Split('=');
+
+            key = keys[1];
+            user = users[1];
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Request.QueryString["key"]))
+            if (string.IsNullOrEmpty(Request.QueryString["q"]))
             {
                 Response.Redirect("~/Logon.aspx");
             }
 
-            this.lblSecretKey.Text = Request.QueryString["key"];
-
+            GetValueFromURLEncrypt();
+            lblSecretKey.Text = key;
 
             TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
             var setupInfo = tfa.GenerateSetupCode(
-                "secureasp", 
-                Request.QueryString["user"] + "@actvn.edu.vn", 
-                Request.QueryString["key"], 
+                "secureasp",
+                user + "@actvn.edu.vn",
+                key, 
                 false, 
                 3);
 
             string qrCodeImageUrl = setupInfo.QrCodeSetupImageUrl;
             string manualEntrySetupCode = setupInfo.ManualEntryKey;
 
-            this.imgQrCode.ImageUrl = qrCodeImageUrl;
-            this.lblManualSetupCode.Text = manualEntrySetupCode;
+            imgQrCode.ImageUrl = qrCodeImageUrl;
+            lblManualSetupCode.Text = manualEntrySetupCode;
         }
 
         private string GetRoleFromGUIDUser(string id)
@@ -71,25 +86,22 @@ namespace secureaspnet
 
             return role;
         }
-
+        lblValidationResult.Text = txtCode.Text + " OK " + DateTime.UtcNow.ToString();
+                lblValidationResult.ForeColor = System.Drawing.Color.Green;
 
         protected void btnValidate_Click(object sender, EventArgs e)
         {
             TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
-            var result = tfa.ValidateTwoFactorPIN(Request.QueryString["key"], this.txtCode.Text);
-            System.Diagnostics.Debug.WriteLine(Request.QueryString["key"]);
+            var result = tfa.ValidateTwoFactorPIN(key, txtCode.Text);
             if (result)
             {
-                this.lblValidationResult.Text = this.txtCode.Text + " OK " + DateTime.UtcNow.ToString();
-                this.lblValidationResult.ForeColor = System.Drawing.Color.Green;
-
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
                     1,
-                    Request.QueryString["user"],
+                    user,
                     DateTime.Now,
                     DateTime.Now.AddMinutes(2880),
                     true,
-                    GetRoleFromGUIDUser(Request.QueryString["key"]),
+                    GetRoleFromGUIDUser(key),
                     FormsAuthentication.FormsCookiePath);
 
                 string hash = FormsAuthentication.Encrypt(ticket);
@@ -100,15 +112,23 @@ namespace secureaspnet
                     cookie.Expires = ticket.Expiration;
                 }
 
-                FormsAuthentication.SetAuthCookie(Request.QueryString["user"], true);
+                FormsAuthentication.SetAuthCookie(user, true);
 
                 Response.Cookies.Add(cookie);
-                Response.Redirect("~/Admin/Manager.aspx", true);
+
+                if (GetRoleFromGUIDUser(key) == "Administrator")
+                {
+                    Response.Redirect("~/Admin/Manager.aspx", true);
+                }
+                else
+                {
+                    Response.Redirect("~/InfomationUser.aspx?id=" + key, true);
+                }
             }
             else
             {
-                this.lblValidationResult.Text = this.txtCode.Text + " ............. " + DateTime.UtcNow.ToString();
-                this.lblValidationResult.ForeColor = System.Drawing.Color.Red;
+                lblValidationResult.Text = txtCode.Text + " ............. " + DateTime.UtcNow.ToString();
+                lblValidationResult.ForeColor = System.Drawing.Color.Red;
             }
         }
     }

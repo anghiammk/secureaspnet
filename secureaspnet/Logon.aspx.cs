@@ -15,6 +15,7 @@ using System.Text;
 using Google.Authenticator;
 using System.Web.Helpers;
 
+
 namespace secureaspnet
 {
     public partial class Logon : System.Web.UI.Page
@@ -38,12 +39,12 @@ namespace secureaspnet
 
             return isAuthenticCredential;
         }
-
+        
 
         private bool CheckLoginUserFromDB(string username, string password)
         {
             bool ret = false;
-
+            
             string connStringDB;
             string sqlStr;
 
@@ -93,6 +94,7 @@ namespace secureaspnet
             string sqlStr = String.Empty;
             string connStringDB;
             string key;
+            string valueEncrypt;
 
             SqlConnection connectionObj;
             SqlCommand command;
@@ -117,7 +119,11 @@ namespace secureaspnet
                     key = reader["id"].ToString();
                     connectionObj.Close();
 
-                    Response.Redirect("~/LogonConfirmCode.aspx?key=" + key + "&user=" + username);
+                    LibSecureASP lib = new LibSecureASP();
+                    valueEncrypt = "key=" + key + "&user=" + username;
+                    lib.EncryptURL(valueEncrypt);
+
+                    Response.Redirect("~/LogonConfirmCode.aspx?q=" + lib.EncryptURL(valueEncrypt));
                 }
                 connectionObj.Close();
             }

@@ -36,7 +36,6 @@ namespace secureaspnet
                         string userData = ticket.UserData;
                         string[] roles = userData.Split(',');
                         HttpContext.Current.User = new GenericPrincipal(id, roles);
-
                     }
                 }
             }

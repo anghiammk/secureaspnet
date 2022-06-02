@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Security.Permissions;
@@ -17,50 +17,27 @@ namespace secureaspnet
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public extern static bool CloseHandle(IntPtr handle);
 
-       
+
         [PermissionSetAttribute(SecurityAction.Demand, Name = "FullTrust")]
-        public static void Main(string[] args)
+        public static SafeTokenHandle GetHandleUserLogon(
+            string domainName, 
+            string userName, 
+            string password)
         {
-            SafeTokenHandle safeTokenHandle;
-            try
-            {
-                string userName, domainName, password;
-                domainName = Console.ReadLine();
-                userName = Console.ReadLine();
-                password = Console.ReadLine();
-                const int LOGON32_PROVIDER_DEFAULT = 0;
-                const int LOGON32_LOGON_INTERACTIVE = 2;
+            SafeTokenHandle safeTokenHandle = null;
+           
+            const int LOGON32_PROVIDER_DEFAULT = 0;
+            const int LOGON32_LOGON_INTERACTIVE = 2;
 
-                // Call LogonUser to obtain a handle to an access token.
-                bool returnValue = LogonUser(userName, domainName, password,
-                    LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT,
-                    out safeTokenHandle);
+            bool returnValue = LogonUser(userName, domainName, password,
+                LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT,
+                out safeTokenHandle);
 
-                if (false == returnValue)
-                {
-                    int ret = Marshal.GetLastWin32Error();
-                    throw new System.ComponentModel.Win32Exception(ret);
-                }
-                using (safeTokenHandle)
-                {
-                    Console.WriteLine("Before impersonation: "
-                        + WindowsIdentity.GetCurrent().Name);
-                 
-                    using (WindowsIdentity newId = new WindowsIdentity(safeTokenHandle.DangerousGetHandle()))
-                    {
-                        using (WindowsImpersonationContext impersonatedUser = newId.Impersonate())
-                        {
-                            Console.WriteLine("After impersonation: "
-                                + WindowsIdentity.GetCurrent().Name);
-                        }
-                    }
-                    Console.WriteLine("After closing the context: " + WindowsIdentity.GetCurrent().Name);
-                }
-            }
-            catch (Exception ex)
+            if (false == returnValue)
             {
-                Console.WriteLine("Exception occurred. " + ex.Message);
+                int ret = Marshal.GetLastWin32Error();
             }
+            return safeTokenHandle;
         }
     }
 

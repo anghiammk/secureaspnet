@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InfomationUser.aspx.cs" Inherits="secureaspnet.InformationUser" ValidateRequest="false"%>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InfomationUser.aspx.cs" Inherits="secureaspnet.InformationUser" ValidateRequest="false"%>
 
 <!DOCTYPE html>
 
@@ -27,6 +27,12 @@
             padding: 5px;
             border-color: #ccc;
         }
+         #form1{
+            font-family:Tahoma;
+            font-size: 10pt;
+            margin: 10px;
+            padding:10px;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +56,6 @@
                     <td>  
                         <asp:Label ID="name" runat="server" ></asp:Label>  
                     </td>  
-                    
                 </tr>  
                 <tr>  
                     <td class="style2">  
@@ -78,6 +83,15 @@
                         Time Create</td>  
                     <td>  
                         <asp:Label ID="time" runat="server"/>  
+                    </td>  
+                </tr>
+                <tr>  
+                    <td class="style2">  
+                        Avatar</td>  
+                    <td>  
+                        <asp:FileUpload ID="fileUpload" runat="server" Width="348px" Height="27px" />  
+                        <asp:Button ID="btnUpload" runat="server" Text="Upload" Height="27px" OnClick="btnUpload_Click" />
+                         <asp:Image ID="Image" runat="server" Width="150px" />
                     </td>  
                 </tr>
                 <tr>  
